@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ArtistComponent } from './artist/artist.component';
+import { SpotifyAuthService } from './spotify-auth.service';
 
 @Component({
   selector: 'app-root',
