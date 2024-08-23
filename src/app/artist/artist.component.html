@@ -1,0 +1,11 @@
+<button (click)="getArtistsAlbum(selectedArtist.toString())">gernerate</button>
+<h2>My Heroes</h2>
+<mat-form-field>
+    <mat-label>Favorite Artist</mat-label>
+    <mat-select [(ngModel)]="selectedArtist">
+        @for (artist of artists; track artist) {
+        <mat-option [value]="artist.id">{{artist.artistName}}</mat-option>
+        }
+    </mat-select>
+</mat-form-field>
+<p> Selected food: {{selectedArtist}} </p>
