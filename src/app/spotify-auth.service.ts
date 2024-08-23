@@ -38,8 +38,6 @@ export class SpotifyAuthService {
 
       const data: AuthToken = await response.json();
 
-      console.log(data);
-
       return data.access_token;
     }
     catch (error) {

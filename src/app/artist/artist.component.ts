@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Artist } from './artists.type';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { SpotifyAuthService } from '../spotify-auth.service';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-artist',
   standalone: true,
-  imports: [MatFormFieldModule, MatSelectModule, MatInputModule, FormsModule],
+  imports: [MatFormFieldModule, MatSelectModule, MatInputModule, FormsModule, RouterOutlet],
   templateUrl: './artist.component.html',
   styleUrl: './artist.component.scss'
 })
