@@ -6,7 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: ArtistComponent },
-    { path: 'player', component: PlayerComponent },
+    { path: 'player/:id', component: PlayerComponent },
 ];
 
 @NgModule({
