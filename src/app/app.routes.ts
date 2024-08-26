@@ -9,8 +9,8 @@ import { SelectorComponent } from './selector/selector.component';
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
-    { path: 'artists', component: SelectorComponent },
-    { path: 'audiobooks', component: SelectorComponent },
+    { path: 'artists', component: SelectorComponent, data: { type: 'artists' } },
+    { path: 'audiobooks', component: SelectorComponent, data: { type: 'audiobooks' } },
     { path: 'artist/:id', component: ArtistComponent },
     { path: 'player/:id', component: PlayerComponent },
     { path: 'audioBook/:id', component: AudiobooksComponent }

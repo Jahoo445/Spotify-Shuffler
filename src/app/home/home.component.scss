@@ -5,7 +5,6 @@ $background-color: #191414;
 $overlay-color: rgba(0, 0, 0, 0.7); // Semi-transparent dark overlay
 $button-hover-color: darken($spotify-green, 10%);
 $font-family: 'Helvetica Neue', Arial, sans-serif;
-$divider-color: rgba(255, 255, 255, 0.2);
 
 // Global styles
 body {
@@ -17,6 +16,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 // Overlay to cover the entire background
@@ -101,19 +101,13 @@ button {
     }
 }
 
-// Divider Line
-.divider {
-    border: none;
-    height: 1px;
-    background-color: $divider-color;
-    width: 80%;
-    margin: 40px auto;
-}
-
 // Footer
 footer {
     text-align: center;
     font-size: 0.9rem;
     color: lighten($text-color, 20%);
-    margin-top: 20px;
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    padding: 10px 0;
 }
