@@ -19,7 +19,11 @@
 
     <!-- Button to navigate to player with a hardcoded artist ID -->
     <button>
-        <a routerLink="/player/{{selectedArtist.id}}" routerLinkActive="active" aria-current="page">Weiter</a>
+        <a routerLink="/player/{{selectedArtist.id}}" aria-current="page">Artists</a>
+    </button>
+
+    <button>
+        <a routerLink="/audioBook/{{selectedArtist.id}}" aria-current="page">audioBooks</a>
     </button>
 
     <!-- Router outlet for rendering routed components -->

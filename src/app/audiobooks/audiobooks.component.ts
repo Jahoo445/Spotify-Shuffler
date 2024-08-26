@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TrackService } from '../services/track-service.service';
 
 @Component({
-  selector: 'app-player',
+  selector: 'app-audiobooks',
   standalone: true,
   imports: [RouterLink],
-  templateUrl: './player.component.html',
-  styleUrl: './player.component.scss'
+  templateUrl: './audiobooks.component.html',
+  styleUrl: './audiobooks.component.scss'
 })
-export class PlayerComponent implements OnInit {
+export class AudiobooksComponent implements OnInit {
   id: string = '';
 
   constructor(private route: ActivatedRoute, private trackService: TrackService) { }
