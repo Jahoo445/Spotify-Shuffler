@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { Artist } from './artists.type';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Artist } from '../types/artists.type';
+import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { TrackService } from '../services/track-service.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { TrackService } from '../services/track-service.service';
+
 
 @Component({
   selector: 'app-artist',
@@ -17,11 +18,8 @@ import { TrackService } from '../services/track-service.service';
 })
 export class ArtistComponent {
   artists: Artist[] = [
-    { id: '10fua9lLREs5JISPcCyyJn', artistName: 'lcone' },
-    { id: '0JBdTCGs111JKKYfLqOEBa', artistName: 'Shirin David' },
-    { id: '7wkPBPwF9oOZJ8lEbQjIVt', artistName: 'Mani Matter' },
-    { id: '1DxUdl4z0N2hLqU7U6yqwc', artistName: 'money Boy' },
-    { id: '3TVXtAsR1Inumwj472S9r4', artistName: 'Drake' },
+    { id: '3meJIgRw7YleJrmbpbJK6S', artistName: 'Die Drie ???' },
+    { id: '61qDotnjM0jnY5lkfOP7ve', artistName: 'TKKG' },
   ];
 
   selectedArtist: Artist = this.artists[0];
