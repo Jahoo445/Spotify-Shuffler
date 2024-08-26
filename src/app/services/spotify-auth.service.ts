@@ -50,7 +50,10 @@ export class SpotifyAuthService {
     this.accessToken = await this.getAccessToken();
   }
 
-  public getStoredAccessToken(): string {
+  public async getStoredAccessToken(): Promise<string> {
+    if (!this.accessToken) {
+      await this.fetchAndStoreAccessToken();
+    }
     return this.accessToken;
   }
 }

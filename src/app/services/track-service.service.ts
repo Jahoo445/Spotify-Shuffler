@@ -8,12 +8,15 @@ export class TrackService {
   constructor(private spotifyAuthService: SpotifyAuthService) { }
 
   async getArtistsAlbum(artistId: string): Promise<any> {
+
+    console.log('access token:', await this.spotifyAuthService.getStoredAccessToken());
+
     const url = `https://api.spotify.com/v1/artists/${artistId}/albums`;
 
     const options = {
       method: 'GET',
       headers: {
-        Authorization: 'Bearer ' + this.spotifyAuthService.getStoredAccessToken(),
+        Authorization: 'Bearer ' + await this.spotifyAuthService.getStoredAccessToken(),
       }
     };
 
