@@ -1,30 +1,27 @@
-<h2>Select ArtMakers</h2>
-<div>
-    <!-- Display the selected artist -->
-    <p>Selected Artist: {{ selectedArtist.artistName }}</p>
-
-    <!-- Dropdown for selecting an artist -->
-    <mat-form-field>
-        <mat-label>Favorite Artist</mat-label>
-        <mat-select [(ngModel)]="selectedArtist">
-            <mat-option *ngFor="let artist of artists" [value]="artist">
-                {{ artist.artistName }}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-</div>
-<div>
-    <!-- Button to fetch albums of the selected artist -->
-    <!-- <button (click)="fetchArtistsAlbum()">Generate</button> -->
-
-    <!-- Button to navigate to player with a hardcoded artist ID -->
-    <button>
-        <a routerLink="/player/{{selectedArtist.id}}" aria-current="page">Artists</a>
-    </button>
-
-    <button>
-        <a routerLink="/audioBook/{{selectedArtist.id}}" aria-current="page">audioBooks</a>
-    </button>
-
-    <!-- Router outlet for rendering routed components -->
+<div class="overlay">
+    <div class="container">
+        <h2>Select ArtMakers</h2>
+        <p class="tagline">Choose your favorite artist or audiobook</p>
+        <div class="artist-image-container">
+            <img *ngIf="artistImageUrl" [src]="artistImageUrl" alt="{{ selectedArtMaker.artistName }}"
+                class="artist-image">
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Favorite Artist</mat-label>
+                <mat-select [(ngModel)]="selectedArtMaker" (selectionChange)="fetchArtistDetails()">
+                    <mat-option *ngFor="let ArtMaker of ArtMakers" [value]="ArtMaker">
+                        {{ ArtMaker.artistName }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="button-group">
+            <button routerLink="/home" aria-current="page">Cancel</button>
+            <button routerLink="/player/{{selectedArtMaker.id}}" aria-current="page">Weiter</button>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 SpoShu. All rights reserved.</p>
+    </footer>
 </div>

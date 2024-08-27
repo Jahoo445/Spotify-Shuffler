@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { SpotifyAuthService } from './spotify-auth.service';
-import { SpotifyAlbum, SpotifyArtistAlbumsResponse } from '../types/spotifyModels';
 
 @Injectable({
   providedIn: 'root',
@@ -17,14 +16,14 @@ export class TrackService {
     const albumCount = await this.getArtistsAlbumCount(artistId);
 
     while (offset < albumCount) {
-      console.log(`offset: ${offset}`);
-      console.log(`albumCount: ${albumCount}`);
-      console.log();
+      console.debug(`offset: ${offset}`);
+      console.debug(`albumCount: ${albumCount}`);
+      console.debug();
 
       const url = `https://api.spotify.com/v1/artists/${artistId}/albums?limit=50&offset=${offset}&include_groups=album`;
 
-      console.log(url);
-      console.log();
+      console.debug(url);
+      console.debug();
 
       const options = {
         method: 'GET',
@@ -55,7 +54,7 @@ export class TrackService {
       offset += 50;
     };
 
-    console.log(albums);
+    console.debug(albums);
   }
 
   private async getArtistsAlbumCount(artistId: string): Promise<number> {
@@ -78,6 +77,30 @@ export class TrackService {
       const data: SpotifyArtistAlbumsResponse = await response.json();
 
       return data.total;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  async getArtist(artistId: string): Promise<Artist> {
+    const url = `https://api.spotify.com/v1/artists/${artistId}`;
+
+    const options = {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + await this.spotifyAuthService.getStoredAccessToken(),
+      }
+    };
+
+    try {
+      const response = await fetch(url, options);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      return await response.json();;
     } catch (error) {
       console.error(error);
       throw error;

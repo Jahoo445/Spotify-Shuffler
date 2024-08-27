@@ -1,10 +1,10 @@
-export interface SpotifyTokenResponse {
+interface SpotifyTokenResponse {
     access_token: string;
     token_type: string;
     expires_in: number;
 }
 
-export interface SpotifyArtistSearchResponse {
+interface SpotifyArtistSearchResponse {
     artists: {
         items: {
             id: string;
@@ -13,7 +13,7 @@ export interface SpotifyArtistSearchResponse {
     };
 }
 
-export interface SpotifyAlbum {
+interface SpotifyAlbum {
     id: string;
     name: string;
     release_date: string;
@@ -21,7 +21,7 @@ export interface SpotifyAlbum {
     album_type: string;
 }
 
-export interface SpotifyArtistAlbumsResponse {
+interface SpotifyArtistAlbumsResponse {
     items: SpotifyAlbum[];
     total: number;
     limit: number;

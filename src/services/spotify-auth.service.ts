@@ -1,11 +1,5 @@
 import { Injectable } from '@angular/core';
 
-interface AuthToken {
-  access_token: string;
-  token_type: string;
-  expires_in: number;
-}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -41,7 +35,7 @@ export class SpotifyAuthService {
       return data.access_token;
     }
     catch (error) {
-      console.log(error);
+      console.error(error);
       return '';
     }
   }
