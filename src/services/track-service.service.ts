@@ -7,23 +7,16 @@ import { SpotifyAuthService } from './spotify-auth.service';
 export class TrackService {
   constructor(private spotifyAuthService: SpotifyAuthService) { }
 
-  async getArtistsAlbum(artistId: string): Promise<any> {
+  async getAudioBooksAlbums(artistId: string): Promise<SpotifyAlbum[]> {
 
     let albums: SpotifyAlbum[] = [];
 
     let offset = 0;
 
-    const albumCount = await this.getArtistsAlbumCount(artistId);
+    const albumCount = await this.getArtMakerAlbumCount(artistId);
 
     while (offset < albumCount) {
-      console.debug(`offset: ${offset}`);
-      console.debug(`albumCount: ${albumCount}`);
-      console.debug();
-
       const url = `https://api.spotify.com/v1/artists/${artistId}/albums?limit=50&offset=${offset}&include_groups=album`;
-
-      console.debug(url);
-      console.debug();
 
       const options = {
         method: 'GET',
@@ -40,10 +33,10 @@ export class TrackService {
 
         const data: SpotifyArtistAlbumsResponse = await response.json();
 
-        // Filter items to include only those with numbers in their names
-        const filteredItems = data.items.filter(item => /\d/.test(item.name));
+        const filteredItems = data.items.filter(item =>
+          /^Folge \d+:/.test(item.name) || /^\d+\/\s*/.test(item.name)
+        );
 
-        // Concatenate the filtered items to the albums array
         albums = albums.concat(filteredItems);
 
       } catch (error) {
@@ -54,10 +47,13 @@ export class TrackService {
       offset += 50;
     };
 
-    console.debug(albums);
+    // console.debug(albums);
+
+    return albums;
   }
 
-  private async getArtistsAlbumCount(artistId: string): Promise<number> {
+
+  private async getArtMakerAlbumCount(artistId: string): Promise<number> {
     const url = `https://api.spotify.com/v1/artists/${artistId}/albums?limit=1&include_groups=album`;
 
     const options = {

@@ -1,1 +1,34 @@
-<p>shuffler works!</p>
+<div class="overlay">
+    <div class="container">
+        <h2>
+            <span *ngIf="artist; else loadingTitle">{{ artist.name }}</span>
+            <ng-template #loadingTitle>
+                <span class="loading-placeholder title-placeholder"></span>
+            </ng-template>
+        </h2>
+        <div class="artist-image-container">
+            <img *ngIf="selectedAlbumImageUrl; else loadingImage" [src]="selectedAlbumImageUrl"
+                alt="{{ selectedAlbum.name || 'Album cover' }}" class="artist-image" (click)="onPlay()">
+            <ng-template #loadingImage>
+                <div class="loading-placeholder image-placeholder">
+                    <img src="assets/placeholder-image.png" alt="Loading image...">
+                </div>
+            </ng-template>
+        </div>
+        <div class="control-button-group">
+            <button class="control-button" (click)="onBack()" aria-label="Previous album">
+                <span class="material-symbols-outlined">skip_previous</span>
+            </button>
+            <button class="control-button play-button" (click)="onPlay()" aria-label="Play album">
+                <span class="material-symbols-outlined">play_arrow</span>
+            </button>
+            <button class="control-button" (click)="onForward()" aria-label="Next album">
+                <span class="material-symbols-outlined">skip_next</span>
+            </button>
+        </div>
+        <div class="button-group">
+            <button routerLink="/home" aria-current="page">Home</button>
+            <button [routerLink]="type === 'artists' ? '/artists' : '/audiobooks'" aria-current="page">Back</button>
+        </div>
+    </div>
+</div>

@@ -10,7 +10,7 @@ export const routes: Routes = [
     { path: 'artists', component: SelectorComponent, data: { type: 'artists' } },
     { path: 'audiobooks', component: SelectorComponent, data: { type: 'audiobooks' } },
     { path: 'artist/:id', component: ShufflerComponent, data: { type: 'artists' } },
-    { path: 'audioBook/:id', component: ShufflerComponent, data: { type: 'audiobooks' } }
+    { path: 'audiobook/:id', component: ShufflerComponent, data: { type: 'audiobooks' } }
 ];
 
 @NgModule({
