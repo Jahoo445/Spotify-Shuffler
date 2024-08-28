@@ -1,19 +1,10 @@
 <div class="overlay">
-    <div class="container">
-        <h2>SpoShu</h2>
-        <p class="tagline">Discover amazing artists and audiobooks</p>
+    <app-title text="SpoShu"></app-title>
+    <p class="tagline">Discover amazing artists and audiobooks</p>
 
-        <div class="button-group">
-            <button routerLink="/artists" aria-current="page">
-                <i class="fas fa-paint-brush"></i> Artists
-            </button>
-
-            <button routerLink="/audiobooks" aria-current="page">
-                <i class="fas fa-book"></i> audioBooks
-            </button>
-        </div>
-    </div>
-    <footer>
-        <p>&copy; 2024 SpoShu. All rights reserved.</p>
-    </footer>
+    <app-nav-buttons-container>
+        <app-nav-button label="Artists" routeLink="/artists"></app-nav-button>
+        <app-nav-button label="Audiobooks" routeLink="/audiobooks"></app-nav-button>
+    </app-nav-buttons-container>
+    <app-footer />
 </div>

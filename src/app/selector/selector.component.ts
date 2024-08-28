@@ -4,11 +4,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { TrackService } from '../../services/track-service.service';
+import { TitleComponent } from '../components/title/title.component';
+import { FooterComponent } from '../components/footer/footer.component';
+import { NavButtonComponent } from '../components/nav-button/nav-button.component';
+import { NavButtonsContainerComponent } from '../components/nav-buttons-container/nav-buttons-container.component';
 
 @Component({
   selector: 'app-selector',
   standalone: true,
-  imports: [CommonModule, MatSelectModule, FormsModule, RouterLink],
+  imports: [CommonModule, MatSelectModule, FormsModule, RouterLink, TitleComponent, FooterComponent, NavButtonComponent, NavButtonsContainerComponent],
   templateUrl: './selector.component.html',
   styleUrl: './selector.component.scss'
 })

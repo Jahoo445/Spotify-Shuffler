@@ -1,15 +1,13 @@
 <div class="overlay">
     <div class="container">
         <div class="header-container">
-            <h2 class="title">Select ArtMakers</h2>
+            <app-title text="Select ArtMakers"></app-title>
             <p class="tagline">Choose your {{type}}</p>
         </div>
-
         <div class="artist-image-container">
             <img *ngIf="artistImageUrl" [src]="artistImageUrl" alt="{{ selectedArtMaker.artistName }}"
                 class="artist-image">
         </div>
-
         <div>
             <mat-form-field appearance="fill">
                 <mat-label>Favorite Artist</mat-label>
@@ -20,17 +18,11 @@
                 </mat-select>
             </mat-form-field>
         </div>
-
-        <div class="button-group">
-            <button routerLink="/home" aria-current="page">Cancel</button>
-            <button
-                [routerLink]="type === 'artists' ? '/artist/' + selectedArtMaker.id : '/audiobook/' + selectedArtMaker.id"
-                aria-current="page">Weiter
-            </button>
-        </div>
+        <app-nav-buttons-container>
+            <app-nav-button label="Cancel" routeLink="/home"></app-nav-button>
+            <app-nav-button label="Weiter"
+                [routeLink]="type === 'artists' ? '/artist/' + selectedArtMaker.id : '/audiobook/' + selectedArtMaker.id"></app-nav-button>
+        </app-nav-buttons-container>
     </div>
-
-    <footer>
-        <p>&copy; 2024 SpoShu. All rights reserved.</p>
-    </footer>
+    <app-footer />
 </div>

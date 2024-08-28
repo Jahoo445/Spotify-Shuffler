@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { SelectorComponent } from './selector/selector.component';
 import { HomeComponent } from './home/home.component';
 import { ShufflerComponent } from './shuffler/shuffler.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ShufflerComponent } from './shuffler/shuffler.component';
         AppComponent,
         SelectorComponent,
         HomeComponent,
-        ShufflerComponent
+        ShufflerComponent,
+        FooterComponent
     ],
     imports: [
         BrowserModule,
@@ -28,6 +30,7 @@ import { ShufflerComponent } from './shuffler/shuffler.component';
         RouterModule,
         MatSelectModule,
         MatOptionModule,
+        FooterComponent
     ],
     providers: [],
     bootstrap: [AppComponent]

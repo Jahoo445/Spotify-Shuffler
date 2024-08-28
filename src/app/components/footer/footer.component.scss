@@ -1,0 +1,12 @@
+$text-color: #fff;
+
+.footer-container {
+    text-align: center;
+    padding: 10px 0;
+    color: $text-color;
+    font-size: 0.9rem;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}

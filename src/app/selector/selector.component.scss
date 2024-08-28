@@ -35,17 +35,6 @@ body {
     padding: 40px;
 }
 
-// Header
-h2 {
-    font-size: 4rem;
-    color: $spotify-green;
-    margin-bottom: 1rem;
-    text-transform: capitalize;
-    letter-spacing: 2px;
-    text-shadow: none !important;
-}
-
-// Tagline
 .tagline {
     font-size: 1.5rem;
     color: lighten($text-color, 20%);
@@ -83,16 +72,6 @@ button {
     &:focus {
         outline: none;
     }
-}
-
-footer {
-    text-align: center;
-    font-size: 0.9rem;
-    color: lighten($text-color, 20%);
-    position: absolute;
-    bottom: 10px;
-    width: 100%;
-    padding: 10px 0;
 }
 
 .artist-image-container {

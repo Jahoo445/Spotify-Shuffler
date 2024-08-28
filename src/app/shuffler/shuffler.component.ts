@@ -5,11 +5,14 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { firstValueFrom } from 'rxjs';
 import { TitleComponent } from '../components/title/title.component';
+import { FooterComponent } from '../components/footer/footer.component';
+import { NavButtonComponent } from '../components/nav-button/nav-button.component';
+import { NavButtonsContainerComponent } from '../components/nav-buttons-container/nav-buttons-container.component';
 
 @Component({
   selector: 'app-shuffler',
   standalone: true,
-  imports: [RouterLink, CommonModule, IonicModule],
+  imports: [RouterLink, CommonModule, IonicModule, TitleComponent, FooterComponent, FooterComponent, NavButtonComponent, NavButtonsContainerComponent],
   templateUrl: './shuffler.component.html',
   styleUrl: './shuffler.component.scss'
 })
