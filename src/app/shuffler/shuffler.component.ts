@@ -4,6 +4,7 @@ import { TrackService } from '../../services/track-service.service';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { firstValueFrom } from 'rxjs';
+import { TitleComponent } from '../components/title/title.component';
 
 @Component({
   selector: 'app-shuffler',

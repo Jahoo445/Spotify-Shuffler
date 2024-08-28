@@ -1,11 +1,12 @@
 <div class="overlay">
     <div class="container">
-        <h2>
+        <h2 class="common-title common-title-location">
             <span *ngIf="artist; else loadingTitle">{{ artist.name }}</span>
             <ng-template #loadingTitle>
                 <span class="loading-placeholder title-placeholder"></span>
             </ng-template>
         </h2>
+
         <div class="artist-image-container">
             <img *ngIf="selectedAlbumImageUrl; else loadingImage" [src]="selectedAlbumImageUrl"
                 alt="{{ selectedAlbum.name || 'Album cover' }}" class="artist-image" (click)="onPlay()">
@@ -15,6 +16,7 @@
                 </div>
             </ng-template>
         </div>
+
         <div class="control-button-group">
             <button class="control-button" (click)="onBack()" aria-label="Previous album">
                 <span class="material-symbols-outlined">skip_previous</span>
@@ -26,9 +28,14 @@
                 <span class="material-symbols-outlined">skip_next</span>
             </button>
         </div>
+
         <div class="button-group">
             <button routerLink="/home" aria-current="page">Home</button>
             <button [routerLink]="type === 'artists' ? '/artists' : '/audiobooks'" aria-current="page">Back</button>
         </div>
     </div>
+
+    <footer>
+        <p>&copy; 2024 SpoShu. All rights reserved.</p>
+    </footer>
 </div>

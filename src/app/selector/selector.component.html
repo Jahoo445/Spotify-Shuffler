@@ -1,16 +1,16 @@
 <div class="overlay">
     <div class="container">
-        <h2>Select ArtMakers</h2>
-        <p class="tagline">Choose your {{type}}</p>
+        <div class="header-container">
+            <h2 class="title">Select ArtMakers</h2>
+            <p class="tagline">Choose your {{type}}</p>
+        </div>
 
-        <!-- Image container with reserved space -->
         <div class="artist-image-container">
             <img *ngIf="artistImageUrl" [src]="artistImageUrl" alt="{{ selectedArtMaker.artistName }}"
                 class="artist-image">
         </div>
 
         <div>
-            <!-- Dropdown for selecting an artist -->
             <mat-form-field appearance="fill">
                 <mat-label>Favorite Artist</mat-label>
                 <mat-select [(ngModel)]="selectedArtMaker" (selectionChange)="fetchArtistDetails()">
@@ -23,13 +23,13 @@
 
         <div class="button-group">
             <button routerLink="/home" aria-current="page">Cancel</button>
-            <!-- Conditional routerLink based on type -->
             <button
                 [routerLink]="type === 'artists' ? '/artist/' + selectedArtMaker.id : '/audiobook/' + selectedArtMaker.id"
                 aria-current="page">Weiter
             </button>
         </div>
     </div>
+
     <footer>
         <p>&copy; 2024 SpoShu. All rights reserved.</p>
     </footer>
