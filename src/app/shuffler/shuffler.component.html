@@ -1,31 +1,27 @@
-<div class="overlay">
-    <div class="container">
-        <app-title [text]="artist?.name || 'Loading...'"></app-title>
-        <div class="artist-image-container">
-            <img *ngIf="selectedAlbumImageUrl; else loadingImage" [src]="selectedAlbumImageUrl"
-                alt="{{ selectedAlbum.name || 'Album cover' }}" class="artist-image" (click)="onPlay()">
-            <ng-template #loadingImage>
-                <div class="loading-placeholder image-placeholder">
-                    <img src="assets/placeholder-image.png" alt="Loading image...">
-                </div>
-            </ng-template>
-        </div>
-        <div class="control-button-group">
-            <button class="control-button" (click)="onBack()" aria-label="Previous album">
-                <span class="material-symbols-outlined">skip_previous</span>
-            </button>
-            <button class="control-button play-button" (click)="onPlay()" aria-label="Play album">
-                <span class="material-symbols-outlined">play_arrow</span>
-            </button>
-            <button class="control-button" (click)="onForward()" aria-label="Next album">
-                <span class="material-symbols-outlined">skip_next</span>
-            </button>
-        </div>
-
-        <app-nav-buttons-container>
-            <app-nav-button label="Home" routeLink="/home"></app-nav-button>
-            <app-nav-button label="Back" [routeLink]="type === 'artists' ? '/artists' : '/audiobooks'"></app-nav-button>
-        </app-nav-buttons-container>
+<div>
+    <app-title [text]="artist?.name || 'Loading...'"></app-title>
+    <div class="artist-image-container">
+        <img *ngIf="selectedAlbumImageUrl; else loadingImage" [src]="selectedAlbumImageUrl"
+            alt="{{ selectedAlbum.name || 'Album cover' }}" class="artist-image" (click)="onPlay()">
+        <ng-template #loadingImage>
+            <img src="assets/placeholder-image.png" alt="Loading image...">
+        </ng-template>
     </div>
-    <app-footer />
+    <div class="control-button-group">
+        <button class="control-button" (click)="onBack()" aria-label="Previous album">
+            <span class="material-symbols-outlined">skip_previous</span>
+        </button>
+        <button class="control-button" (click)="onPlay()" aria-label="Play album">
+            <span class="material-symbols-outlined">play_arrow</span>
+        </button>
+        <button class="control-button" (click)="onForward()" aria-label="Next album">
+            <span class="material-symbols-outlined">skip_next</span>
+        </button>
+    </div>
+</div>
+<div>
+    <app-nav-buttons-container>
+        <app-nav-button label="Home" routeLink="/home"></app-nav-button>
+        <app-nav-button label="Back" [routeLink]="type === 'artists' ? '/artists' : '/audiobooks'"></app-nav-button>
+    </app-nav-buttons-container>
 </div>

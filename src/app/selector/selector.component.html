@@ -1,28 +1,22 @@
 <div class="overlay">
-    <div class="container">
-        <div class="header-container">
-            <app-title text="Select ArtMakers"></app-title>
-            <p class="tagline">Choose your {{type}}</p>
-        </div>
-        <div class="artist-image-container">
-            <img *ngIf="artistImageUrl" [src]="artistImageUrl" alt="{{ selectedArtMaker.artistName }}"
-                class="artist-image">
-        </div>
-        <div>
-            <mat-form-field appearance="fill">
-                <mat-label>Favorite Artist</mat-label>
-                <mat-select [(ngModel)]="selectedArtMaker" (selectionChange)="fetchArtistDetails()">
-                    <mat-option *ngFor="let ArtMaker of ArtMakers" [value]="ArtMaker">
-                        {{ ArtMaker.artistName }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <app-nav-buttons-container>
-            <app-nav-button label="Cancel" routeLink="/home"></app-nav-button>
-            <app-nav-button label="Weiter"
-                [routeLink]="type === 'artists' ? '/artist/' + selectedArtMaker.id : '/audiobook/' + selectedArtMaker.id"></app-nav-button>
-        </app-nav-buttons-container>
+    <app-title text="Select ArtMaker"></app-title>
+    <p class="tagline">Choose your {{type}}</p>
+    <div class="artist-image-container">
+        <img *ngIf="artistImageUrl" [src]="artistImageUrl" alt="{{ selectedArtMaker.artistName }}" class="artist-image">
     </div>
-    <app-footer />
+    <mat-form-field appearance="fill">
+        <mat-label>Favorite Artist</mat-label>
+        <mat-select [(ngModel)]="selectedArtMaker" (selectionChange)="fetchArtistDetails()">
+            <mat-option *ngFor="let ArtMaker of ArtMakers" [value]="ArtMaker">
+                {{ ArtMaker.artistName }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+<div>
+    <app-nav-buttons-container>
+        <app-nav-button label="Cancel" routeLink="/home"></app-nav-button>
+        <app-nav-button label="Weiter"
+            [routeLink]="type === 'artists' ? '/artist/' + selectedArtMaker.id : '/audiobook/' + selectedArtMaker.id"></app-nav-button>
+    </app-nav-buttons-container>
 </div>
