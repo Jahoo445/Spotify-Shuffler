@@ -13,7 +13,7 @@ export class TrackService {
 
     let offset = 0;
 
-    const albumCount = await this.getArtMakerAlbumCount(artistId);
+    const albumCount = await this.getArtMakerCreationCount(artistId);
 
     while (offset < albumCount) {
       const url = `https://api.spotify.com/v1/artists/${artistId}/albums?limit=50&offset=${offset}&include_groups=album`;
@@ -53,7 +53,7 @@ export class TrackService {
   }
 
 
-  private async getArtMakerAlbumCount(artistId: string): Promise<number> {
+  private async getArtMakerCreationCount(artistId: string): Promise<number> {
     const url = `https://api.spotify.com/v1/artists/${artistId}/albums?limit=1&include_groups=album`;
 
     const options = {
@@ -102,4 +102,84 @@ export class TrackService {
       throw error;
     }
   }
+
+  // async getArtistSingels(artistId: string): Promise<SpotifyAlbum[]> {
+  //   let singles: SpotifyAlbum[] = [];
+
+  //   let offset = 0;
+
+  //   const singlesCount = this.getArtistSinglesCount(artistId);
+  // }
+
+  async getArtistSingels(artistId: string): Promise<void> {
+    let singles: SpotifyAlbum[] = [];
+
+    let offset = 0;
+
+    const singlesCount = await this.getArtMakerCreationCount(artistId);
+
+    while (offset < singlesCount) {
+      const url = `https://api.spotify.com/v1/artists/${artistId}/albums?limit=50&offset=${offset}&include_groups=album`;
+
+      const options = {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + await this.spotifyAuthService.getStoredAccessToken(),
+        }
+      };
+      try {
+        const response = await fetch(url, options);
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data: SpotifyArtistAlbumsResponse = await response.json();
+
+        const filteredItems = data.items.filter(item =>
+          /^Folge \d+:/.test(item.name) || /^\d+\/\s*/.test(item.name)
+        );
+
+        singles = singles.concat(filteredItems);
+
+        if (data.items.length <= 50) {
+          break;
+        }
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+
+      offset += 50;
+    }
+  }
+
+  private async getArtistSinglesCount(artistId: string): Promise<number> {
+    const url = `https://api.spotify.com/v1/artists/${artistId}/albums?&include_groups=single&limit=50&offset=50`;
+
+    const options = {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + await this.spotifyAuthService.getStoredAccessToken(),
+      }
+    };
+
+    try {
+      const response = await fetch(url, options);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data: SpotifyArtistAlbumsResponse = await response.json();
+
+      console.log(data);
+
+      return data.total;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
 }

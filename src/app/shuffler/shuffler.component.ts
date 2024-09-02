@@ -8,11 +8,12 @@ import { TitleComponent } from '../components/title/title.component';
 import { FooterComponent } from '../components/footer/footer.component';
 import { NavButtonComponent } from '../components/nav-button/nav-button.component';
 import { NavButtonsContainerComponent } from '../components/nav-buttons-container/nav-buttons-container.component';
+import { ControlButtonsComponent } from '../components/control-buttons/control-buttons.component';
 
 @Component({
   selector: 'app-shuffler',
   standalone: true,
-  imports: [RouterLink, CommonModule, IonicModule, TitleComponent, FooterComponent, FooterComponent, NavButtonComponent, NavButtonsContainerComponent],
+  imports: [RouterLink, CommonModule, IonicModule, TitleComponent, FooterComponent, FooterComponent, NavButtonComponent, NavButtonsContainerComponent, ControlButtonsComponent],
   templateUrl: './shuffler.component.html',
   styleUrl: './shuffler.component.scss'
 })
@@ -53,6 +54,8 @@ export class ShufflerComponent implements OnInit {
         } else {
           console.warn('No albums found for this artist.');
         }
+      } else if (this.type === 'artists') {
+        await this.trackService.getArtistSingels(this.id);
       }
 
       this.loading = false;
@@ -91,7 +94,7 @@ export class ShufflerComponent implements OnInit {
     }
   }
 
-  getRandomInt(max: number): number {
+  private getRandomInt(max: number): number {
     return Math.floor(Math.random() * max);
   }
 }
