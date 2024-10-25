@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -17,6 +17,8 @@ import { NavButtonsContainerComponent } from '../components/nav-buttons-containe
   styleUrl: './selector.component.scss'
 })
 export class SelectorComponent implements OnInit {
+
+  isDropdownOpen = false;
 
   audiobooks: ArtMaker[] = [
     { id: '3meJIgRw7YleJrmbpbJK6S', artistName: 'Die Drie ???' },
@@ -64,6 +66,24 @@ export class SelectorComponent implements OnInit {
       }).catch(error => {
         console.error('Error fetching artist details:', error);
       });
+    }
+  }
+
+  toggleDropdown(): void {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  selectArtMaker(ArtMaker: ArtMaker): void {
+    this.selectedArtMaker = ArtMaker;
+    this.isDropdownOpen = false;
+    this.fetchArtistDetails();
+  }
+
+  // Close the dropdown if clicked outside
+  @HostListener('document:click', ['$event'])
+  closeDropdown(event: Event): void {
+    if (!(event.target as HTMLElement).closest('.dropdown-container')) {
+      this.isDropdownOpen = false;
     }
   }
 }
