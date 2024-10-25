@@ -4,14 +4,19 @@
     <div class="artist-image-container">
         <img *ngIf="artistImageUrl" [src]="artistImageUrl" alt="{{ selectedArtMaker.artistName }}" class="artist-image">
     </div>
-    <mat-form-field appearance="fill">
-        <mat-label>Favorite Artist</mat-label>
-        <mat-select [(ngModel)]="selectedArtMaker" (selectionChange)="fetchArtistDetails()">
-            <mat-option *ngFor="let ArtMaker of ArtMakers" [value]="ArtMaker">
+    <div class="dropdown-container">
+        <label for="dropdown" class="dropdown-label">Favorite Artist</label>
+        <div class="custom-dropdown" (click)="toggleDropdown()">
+            <span>{{ selectedArtMaker.artistName || 'Select an artist' }}</span>
+            <div class="dropdown-arrow">&#9662;</div>
+        </div>
+        <ul class="dropdown-options" *ngIf="isDropdownOpen">
+            <li *ngFor="let ArtMaker of ArtMakers" (click)="selectArtMaker(ArtMaker)"
+                [class.selected]="ArtMaker === selectedArtMaker">
                 {{ ArtMaker.artistName }}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
+            </li>
+        </ul>
+    </div>
 </div>
 <div>
     <app-nav-buttons-container>
