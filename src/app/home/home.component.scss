@@ -1,0 +1,16 @@
+$text-color: #fff;
+
+.tagline {
+    display: flex;
+    font-size: 1.5rem;
+    color: lighten($text-color, 20%);
+    margin-bottom: 2rem;
+    font-weight: 300;
+    align-items: center;
+}
+
+:host {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

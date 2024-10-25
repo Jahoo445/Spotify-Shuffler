@@ -1,0 +1,14 @@
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.main-content {
+    display: flex;
+    width: 500px;
+    height: 600px;
+    align-items: stretch;
+    justify-content: center;
+}

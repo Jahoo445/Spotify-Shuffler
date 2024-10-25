@@ -1,0 +1,18 @@
+<div>
+    <app-title [text]="artist?.name || 'Loading...'"></app-title>
+    <div class="artist-image-container">
+        <img *ngIf="selectedAlbumImageUrl; else loadingImage" [src]="selectedAlbumImageUrl"
+            alt="{{ selectedAlbum.name || 'Album cover' }}" class="artist-image" (click)="onPlay()">
+        <ng-template #loadingImage>
+            <img src="assets/placeholder-image.png" alt="Loading image...">
+        </ng-template>
+    </div>
+    <app-control-buttons (back)="onBack()" (play)="onPlay()" (forward)="onForward()"></app-control-buttons>
+
+</div>
+<div>
+    <app-nav-buttons-container>
+        <app-nav-button label="Home" routeLink="/home"></app-nav-button>
+        <app-nav-button label="Back" [routeLink]="type === 'artists' ? '/artists' : '/audiobooks'"></app-nav-button>
+    </app-nav-buttons-container>
+</div>

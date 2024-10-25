@@ -1,4 +1,4 @@
-export interface Artist {
+interface ArtMaker {
     id: string;
     artistName: string;
 }
