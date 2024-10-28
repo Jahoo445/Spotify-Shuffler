@@ -35,10 +35,6 @@ export class TitleComponent implements AfterViewChecked {
     const titleElement = this.el.nativeElement.querySelector('.title');
     const screenWidth = window.innerWidth;
 
-    console.log(screenWidth);
-
-    console.log(this.text.length);
-
     if (screenWidth < 445) {
       this.renderer.setStyle(titleElement, 'font-size', '2.9rem');
     } else if (this.text.length >= 15) {

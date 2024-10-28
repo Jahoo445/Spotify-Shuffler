@@ -9,6 +9,7 @@ import { FooterComponent } from '../components/footer/footer.component';
 import { NavButtonComponent } from '../components/nav-button/nav-button.component';
 import { NavButtonsContainerComponent } from '../components/nav-buttons-container/nav-buttons-container.component';
 import { ControlButtonsComponent } from '../components/control-buttons/control-buttons.component';
+import { SpotifyTrack } from '../../types/spotifyModels/artistsTracks';
 
 @Component({
   selector: 'app-shuffler',
@@ -23,9 +24,13 @@ export class ShufflerComponent implements OnInit {
 
   artist: Artist | null = null;
   albums: SpotifyAlbum[] = [];
+  tracks: SpotifyTrack[] = [];
 
-  selectedAlbum!: SpotifyAlbum;
-  selectedAlbumImageUrl!: string;
+  selectedAlbum: SpotifyAlbum | null = null;
+  selectedTrack: SpotifyTrack | null = null;
+
+  selectedMedia!: SpotifyAlbum | SpotifyTrack;
+  selectedImageUrl!: string;
 
   loading: boolean = true;
 
@@ -49,13 +54,22 @@ export class ShufflerComponent implements OnInit {
         if (this.albums.length > 0) {
           this.randomNumber = this.getRandomInt(this.albums.length);
           this.selectedAlbum = this.albums[this.randomNumber];
-          this.selectedAlbumImageUrl = this.selectedAlbum.images[1].url;
+          this.selectedImageUrl = this.selectedAlbum.images[1].url;
           this.randomNumberArray.push(this.randomNumber);
         } else {
           console.warn('No albums found for this artist.');
         }
       } else if (this.type === 'artists') {
-        await this.trackService.getArtistSingels(this.id);
+        this.tracks = await this.trackService.getAllTracksByArtist(this.id);
+
+        if (this.tracks.length > 0) {
+          this.randomNumber = this.getRandomInt(this.tracks.length);
+          this.selectedTrack = this.tracks[this.randomNumber];
+          this.selectedImageUrl = this.selectedTrack.album.images[1].url;
+          this.randomNumberArray.push(this.randomNumber);
+        } else {
+          console.warn('No tracks found for this artist.');
+        }
       }
 
       this.loading = false;
@@ -68,13 +82,24 @@ export class ShufflerComponent implements OnInit {
   onBack() {
     if (this.randomNumberIndex > 0) {
       this.randomNumberIndex--;
-      this.selectedAlbum = this.albums[this.randomNumberArray[this.randomNumberIndex]];
-      this.selectedAlbumImageUrl = this.selectedAlbum.images[1].url;
+      if (this.type === 'artists') {
+        this.selectedTrack = this.tracks[this.randomNumberArray[this.randomNumberIndex]];
+        this.selectedImageUrl = this.selectedTrack.album.images[1].url;
+      }
+      else if (this.type === 'audiobooks') {
+        this.selectedAlbum = this.albums[this.randomNumberArray[this.randomNumberIndex]];
+        this.selectedImageUrl = this.selectedAlbum.images[1].url;
+      }
     }
   }
 
   onPlay() {
-    const spotifyUrl = this.selectedAlbum.external_urls.spotify;
+    let spotifyUrl = '';
+    if (this.type === 'artists') {
+      spotifyUrl = this.selectedTrack?.external_urls.spotify!;
+    } else if (this.type === 'audiobooks') {
+      spotifyUrl = this.selectedAlbum?.external_urls.spotify!;
+    }
     window.open(spotifyUrl, '_blank');
   }
 
@@ -82,16 +107,20 @@ export class ShufflerComponent implements OnInit {
     if (this.randomNumberIndex < this.randomNumberArray.length - 1) {
       this.randomNumberIndex++;
       this.selectedAlbum = this.albums[this.randomNumberArray[this.randomNumberIndex]];
-      this.selectedAlbumImageUrl = this.selectedAlbum.images[1].url;
+      this.selectedImageUrl = this.selectedAlbum.images[1].url;
 
     } else if (this.randomNumberIndex === this.randomNumberArray.length - 1) {
       this.randomNumber = this.getRandomInt(this.albums.length);
       this.selectedAlbum = this.albums[this.randomNumber];
-      this.selectedAlbumImageUrl = this.selectedAlbum.images[1].url;
+      this.selectedImageUrl = this.selectedAlbum.images[1].url;
 
       this.randomNumberArray.push(this.randomNumber);
       this.randomNumberIndex++;
     }
+  }
+
+  private get ImageUrl(): string {
+    return this.selectedMedia.images[1].url;
   }
 
   private getRandomInt(max: number): number {
