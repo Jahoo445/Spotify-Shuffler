@@ -79,7 +79,6 @@ export class SelectorComponent implements OnInit {
     this.fetchArtistDetails();
   }
 
-  // Close the dropdown if clicked outside
   @HostListener('document:click', ['$event'])
   closeDropdown(event: Event): void {
     if (!(event.target as HTMLElement).closest('.dropdown-container')) {
