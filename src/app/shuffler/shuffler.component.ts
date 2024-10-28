@@ -23,13 +23,12 @@ export class ShufflerComponent implements OnInit {
   id!: string;
 
   artist: Artist | null = null;
-  albums: SpotifyAlbum[] = [];
-  tracks: SpotifyTrack[] = [];
 
-  selectedAlbum: SpotifyAlbum | null = null;
-  selectedTrack: SpotifyTrack | null = null;
+  medias: (SpotifyAlbum | SpotifyTrack)[] = [];
 
   selectedMedia!: SpotifyAlbum | SpotifyTrack;
+
+
   selectedImageUrl!: string;
 
   loading: boolean = true;
@@ -49,27 +48,19 @@ export class ShufflerComponent implements OnInit {
       this.artist = await this.trackService.getArtist(this.id);
 
       if (this.type === 'audiobooks') {
-        this.albums = await this.trackService.getAudioBooksAlbums(this.id);
+        this.medias = await this.trackService.getAudioBooksAlbums(this.id);
 
-        if (this.albums.length > 0) {
-          this.randomNumber = this.getRandomInt(this.albums.length);
-          this.selectedAlbum = this.albums[this.randomNumber];
-          this.selectedImageUrl = this.selectedAlbum.images[1].url;
-          this.randomNumberArray.push(this.randomNumber);
-        } else {
-          console.warn('No albums found for this artist.');
-        }
       } else if (this.type === 'artists') {
-        this.tracks = await this.trackService.getAllTracksByArtist(this.id);
+        this.medias = await this.trackService.getAllTracksByArtist(this.id);
+      }
 
-        if (this.tracks.length > 0) {
-          this.randomNumber = this.getRandomInt(this.tracks.length);
-          this.selectedTrack = this.tracks[this.randomNumber];
-          this.selectedImageUrl = this.selectedTrack.album.images[1].url;
-          this.randomNumberArray.push(this.randomNumber);
-        } else {
-          console.warn('No tracks found for this artist.');
-        }
+      if (this.medias.length > 0) {
+        this.randomNumber = this.getRandomInt(this.medias.length);
+        this.selectedMedia = this.medias[this.randomNumber];
+        this.selectedImageUrl = this.getImageUrl();
+        this.randomNumberArray.push(this.randomNumber);
+      } else {
+        console.warn('No media found for this artist.');
       }
 
       this.loading = false;
@@ -82,44 +73,37 @@ export class ShufflerComponent implements OnInit {
   onBack() {
     if (this.randomNumberIndex > 0) {
       this.randomNumberIndex--;
-      if (this.type === 'artists') {
-        this.selectedTrack = this.tracks[this.randomNumberArray[this.randomNumberIndex]];
-        this.selectedImageUrl = this.selectedTrack.album.images[1].url;
-      }
-      else if (this.type === 'audiobooks') {
-        this.selectedAlbum = this.albums[this.randomNumberArray[this.randomNumberIndex]];
-        this.selectedImageUrl = this.selectedAlbum.images[1].url;
-      }
+      this.selectedMedia = this.medias[this.randomNumberArray[this.randomNumberIndex]];
+      this.selectedImageUrl = this.getImageUrl();
     }
   }
 
   onPlay() {
-    let spotifyUrl = '';
-    if (this.type === 'artists') {
-      spotifyUrl = this.selectedTrack?.external_urls.spotify!;
-    } else if (this.type === 'audiobooks') {
-      spotifyUrl = this.selectedAlbum?.external_urls.spotify!;
-    }
+    const spotifyUrl = this.selectedMedia.external_urls.spotify;
     window.open(spotifyUrl, '_blank');
   }
 
   onForward() {
+    console.log(this.randomNumberIndex)
+
+    console.log(this.randomNumberArray.length - 1);
+
     if (this.randomNumberIndex < this.randomNumberArray.length - 1) {
       this.randomNumberIndex++;
-      this.selectedAlbum = this.albums[this.randomNumberArray[this.randomNumberIndex]];
-      this.selectedImageUrl = this.selectedAlbum.images[1].url;
+      this.selectedMedia = this.medias[this.randomNumberArray[this.randomNumberIndex]];
+      this.selectedImageUrl = this.getImageUrl();
 
     } else if (this.randomNumberIndex === this.randomNumberArray.length - 1) {
-      this.randomNumber = this.getRandomInt(this.albums.length);
-      this.selectedAlbum = this.albums[this.randomNumber];
-      this.selectedImageUrl = this.selectedAlbum.images[1].url;
+      this.randomNumber = this.getRandomInt(this.medias.length);
+      this.selectedMedia = this.medias[this.randomNumber];
+      this.selectedImageUrl = this.getImageUrl();
 
       this.randomNumberArray.push(this.randomNumber);
       this.randomNumberIndex++;
     }
   }
 
-  private get ImageUrl(): string {
+  private getImageUrl(): string {
     return this.selectedMedia.images[1].url;
   }
 

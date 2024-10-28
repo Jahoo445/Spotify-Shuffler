@@ -4,7 +4,7 @@ $text-color: #fff;
     width: 300px;
     height: 300px;
     border-radius: 10px;
-    margin: 20px auto;
+    margin: auto;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     background-color: #f0f0f0;
     display: flex;
@@ -19,17 +19,24 @@ $text-color: #fff;
     object-fit: cover;
 }
 
-.tagline {
-    display: flex;
-    font-size: 1.5rem;
-    color: lighten($text-color, 20%);
-    margin-bottom: 2rem;
-    font-weight: 300;
-    align-items: center;
-}
-
 :host {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+p {
+    color: lighten($text-color, 20%);
+    font-weight: 300;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.content {
+    display: block;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }

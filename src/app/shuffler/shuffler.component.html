@@ -1,9 +1,9 @@
-<div>
+<div class="content">
     <app-title [text]="artist?.name || 'Loading...'"></app-title>
+    <p class="tagline">{{artist?.name || 'Loading...'}}</p>
     <div class="artist-image-container">
         <img *ngIf="selectedImageUrl; else loadingImage" [src]="selectedImageUrl"
-            alt="{{ selectedAlbum?.name ? (selectedAlbum?.name + (selectedTrack?.name ? ' - ' + selectedTrack?.name : '')) : (selectedTrack?.name || 'Album cover') }}"
-            class="artist-image" (click)="onPlay()">
+            alt="{{ selectedMedia.name || 'Loading...' }}" class="artist-image" (click)="onPlay()">
         <ng-template #loadingImage>
             <img src="assets/placeholder-image.png" alt="Loading image...">
         </ng-template>
