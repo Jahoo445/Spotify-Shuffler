@@ -1,6 +1,6 @@
 <div class="content">
     <app-title [text]="artist?.name || 'Loading...'"></app-title>
-    <p class="tagline">{{artist?.name || 'Loading...'}}</p>
+    <p class="tagline">{{selectedMedia.name || 'Loading...'}}</p>
     <div class="artist-image-container">
         <img *ngIf="selectedImageUrl; else loadingImage" [src]="selectedImageUrl"
             alt="{{ selectedMedia.name || 'Loading...' }}" class="artist-image" (click)="onPlay()">
