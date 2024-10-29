@@ -26,7 +26,7 @@ export class ShufflerComponent implements OnInit {
 
   medias: (SpotifyAlbum | SpotifyTrack)[] = [];
 
-  selectedMedia!: SpotifyAlbum | SpotifyTrack;
+  selectedMedia: SpotifyAlbum | SpotifyTrack | null = null;
 
 
   selectedImageUrl!: string;
@@ -79,7 +79,7 @@ export class ShufflerComponent implements OnInit {
   }
 
   onPlay() {
-    const spotifyUrl = this.selectedMedia.external_urls.spotify;
+    const spotifyUrl = this.selectedMedia?.external_urls.spotify;
     window.open(spotifyUrl, '_blank');
   }
 
@@ -104,7 +104,7 @@ export class ShufflerComponent implements OnInit {
   }
 
   private getImageUrl(): string {
-    return this.selectedMedia.images[1].url;
+    return this.selectedMedia?.images[1].url!;
   }
 
   private getRandomInt(max: number): number {
