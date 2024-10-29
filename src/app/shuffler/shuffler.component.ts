@@ -41,6 +41,9 @@ export class ShufflerComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     try {
+      console.log(process.env['ANGULAR_APP_SPOTIFY_CLIENT_ID'])
+      console.log(process.env['ANGULAR_APP_SPOTIFY_CLIENT_SECRET'])
+
       const data = await firstValueFrom(this.route.data);
       this.type = data['type'];
       this.id = this.route.snapshot.paramMap.get('id')!;
