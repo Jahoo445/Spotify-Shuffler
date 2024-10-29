@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SpotifyAuthService } from './spotify-auth.service';
+import { SpotifyTrack } from '../types/spotifyModels/artistsTracks';
 
 @Injectable({
   providedIn: 'root',
@@ -52,7 +53,6 @@ export class TrackService {
     return albums;
   }
 
-
   private async getArtMakerCreationCount(artistId: string): Promise<number> {
     const url = `https://api.spotify.com/v1/artists/${artistId}/albums?limit=1&include_groups=album`;
 
@@ -103,83 +103,53 @@ export class TrackService {
     }
   }
 
-  // async getArtistSingels(artistId: string): Promise<SpotifyAlbum[]> {
-  //   let singles: SpotifyAlbum[] = [];
+  async getAllTracksByArtist(artistId: string): Promise<SpotifyTrack[]> {
+    const allTracks: SpotifyTrack[] = [];
 
-  //   let offset = 0;
+    let albums: any[] = [];
+    let albumOffset = 0;
+    const albumsUrl = `https://api.spotify.com/v1/artists/${artistId}/albums`;
 
-  //   const singlesCount = this.getArtistSinglesCount(artistId);
-  // }
-
-  async getArtistSingels(artistId: string): Promise<void> {
-    let singles: SpotifyAlbum[] = [];
-
-    let offset = 0;
-
-    const singlesCount = await this.getArtMakerCreationCount(artistId);
-
-    while (offset < singlesCount) {
-      const url = `https://api.spotify.com/v1/artists/${artistId}/albums?limit=50&offset=${offset}&include_groups=album`;
-
-      const options = {
-        method: 'GET',
+    while (true) {
+      const albumResponse = await fetch(`${albumsUrl}?offset=${albumOffset}&limit=50`, {
         headers: {
           Authorization: 'Bearer ' + await this.spotifyAuthService.getStoredAccessToken(),
-        }
-      };
-      try {
-        const response = await fetch(url, options);
+        },
+      });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data: SpotifyArtistAlbumsResponse = await response.json();
-
-        const filteredItems = data.items.filter(item =>
-          /^Folge \d+:/.test(item.name) || /^\d+\/\s*/.test(item.name)
-        );
-
-        singles = singles.concat(filteredItems);
-
-        if (data.items.length <= 50) {
-          break;
-        }
-      } catch (error) {
-        console.error(error);
-        throw error;
-      }
-
-      offset += 50;
+      const albumData = await albumResponse.json();
+      albums = albums.concat(albumData.items);
+      if (albumData.items.length < 50) break;
+      albumOffset += 50;
     }
-  }
 
-  private async getArtistSinglesCount(artistId: string): Promise<number> {
-    const url = `https://api.spotify.com/v1/artists/${artistId}/albums?&include_groups=single&limit=50&offset=50`;
 
-    const options = {
-      method: 'GET',
-      headers: {
-        Authorization: 'Bearer ' + await this.spotifyAuthService.getStoredAccessToken(),
+    for (const album of albums) {
+
+      let trackOffset = 0;
+      const tracksUrl = `https://api.spotify.com/v1/albums/${album.id}/tracks`;
+
+      while (true) {
+        const trackResponse = await fetch(`${tracksUrl}?offset=${trackOffset}&limit=50`, {
+          headers: {
+            Authorization: 'Bearer ' + await this.spotifyAuthService.getStoredAccessToken(),
+          },
+        });
+
+        const trackData = await trackResponse.json();
+
+        for (const track of trackData.items) {
+          if (track.artists.some((artist: { id: string }) => artist.id === artistId)) {
+            track.album = album;
+            track.images = album.images;
+            allTracks.push(track);
+          }
+        }
+        if (trackData.items.length < 50) break;
+        trackOffset += 50;
       }
-    };
-
-    try {
-      const response = await fetch(url, options);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const data: SpotifyArtistAlbumsResponse = await response.json();
-
-      console.log(data);
-
-      return data.total;
-    } catch (error) {
-      console.error(error);
-      throw error;
     }
-  }
 
+    return allTracks;
+  }
 }
