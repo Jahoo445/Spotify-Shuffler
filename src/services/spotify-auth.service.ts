@@ -15,8 +15,8 @@ export class SpotifyAuthService {
 
     const urlencoded = new URLSearchParams();
     urlencoded.append("grant_type", "client_credentials");
-    urlencoded.append("client_id", "7ea35e1941b142bbbb4680e5b28fe95d");
-    urlencoded.append("client_secret", "6327313494c049b2a1e38e39e3dd3484");
+    urlencoded.append("client_id", "4f6993cd4fd54564b2f45a0d9a941742");
+    urlencoded.append("client_secret", "9913877d9bdc4065ad25a69b84733471");
 
     const options = {
       method: 'POST',
