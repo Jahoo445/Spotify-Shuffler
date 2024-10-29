@@ -41,9 +41,6 @@ export class ShufflerComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     try {
-      console.log(process.env['ANGULAR_APP_SPOTIFY_CLIENT_ID'])
-      console.log(process.env['ANGULAR_APP_SPOTIFY_CLIENT_SECRET'])
-
       const data = await firstValueFrom(this.route.data);
       this.type = data['type'];
       this.id = this.route.snapshot.paramMap.get('id')!;
@@ -87,10 +84,6 @@ export class ShufflerComponent implements OnInit {
   }
 
   onForward() {
-    console.log(this.randomNumberIndex)
-
-    console.log(this.randomNumberArray.length - 1);
-
     if (this.randomNumberIndex < this.randomNumberArray.length - 1) {
       this.randomNumberIndex++;
       this.selectedMedia = this.medias[this.randomNumberArray[this.randomNumberIndex]];
