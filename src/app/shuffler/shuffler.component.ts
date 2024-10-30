@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TrackService } from '../../services/track-service.service';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+// import { IonicModule } from '@ionic/angular';
 import { firstValueFrom } from 'rxjs';
 import { TitleComponent } from '../components/title/title.component';
 import { FooterComponent } from '../components/footer/footer.component';
@@ -14,7 +14,7 @@ import { SpotifyTrack } from '../../types/spotifyModels/artistsTracks';
 @Component({
   selector: 'app-shuffler',
   standalone: true,
-  imports: [RouterLink, CommonModule, IonicModule, TitleComponent, FooterComponent, FooterComponent, NavButtonComponent, NavButtonsContainerComponent, ControlButtonsComponent],
+  imports: [RouterLink, CommonModule, TitleComponent, FooterComponent, FooterComponent, NavButtonComponent, NavButtonsContainerComponent, ControlButtonsComponent],
   templateUrl: './shuffler.component.html',
   styleUrl: './shuffler.component.scss'
 })
