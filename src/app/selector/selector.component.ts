@@ -21,9 +21,9 @@ export class SelectorComponent implements OnInit {
   isDropdownOpen = false;
 
   audiobooks: ArtMaker[] = [
-    { id: '3meJIgRw7YleJrmbpbJK6S', artistName: 'Die Drie ???' },
-    { id: '0vLsqW05dyLvjuKKftAEGA', artistName: 'Die Drie ??? Kids' },
-    { id: '2Jc4AEeBTE47KwuKgYOtcL', artistName: 'Die Drie !!!' },
+    { id: '3meJIgRw7YleJrmbpbJK6S', artistName: 'Die Drei ???' },
+    { id: '0vLsqW05dyLvjuKKftAEGA', artistName: 'Die Drei ??? Kids' },
+    { id: '2Jc4AEeBTE47KwuKgYOtcL', artistName: 'Die Drei !!!' },
     { id: '61qDotnjM0jnY5lkfOP7ve', artistName: 'TKKG' },
   ];
 
