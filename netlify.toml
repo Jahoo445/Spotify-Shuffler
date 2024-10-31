@@ -1,6 +1,6 @@
 [build]
   command = "npm run build:ssr"
-  publish = "dist/your-project-name/browser"
+  publish = "dist/spotify-shuffler/browser"
   functions = "netlify/functions"
 
 [[redirects]]
