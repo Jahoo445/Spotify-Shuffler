@@ -1,0 +1,30 @@
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    flex-direction: column;
+}
+
+button {
+    background-color: #525252;
+    border: none;
+    cursor: pointer;
+    color: #1db954;
+}
+
+.material-symbols-outlined {
+    font-size: 2.5rem;
+}
+
+.main-content {
+    display: flex;
+    width: 500px;
+    height: 600px;
+    align-items: stretch;
+    justify-content: center;
+}

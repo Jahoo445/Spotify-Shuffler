@@ -10,7 +10,6 @@ import { NavButtonComponent } from '../components/nav-button/nav-button.componen
 import { NavButtonsContainerComponent } from '../components/nav-buttons-container/nav-buttons-container.component';
 import { FirebaseArtistsService } from '../../../services/firebase-artists.service';
 import { ArtMakerService } from '../../../services/artists.service';
-import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-selector',
@@ -30,14 +29,6 @@ export class SelectorComponent implements OnInit {
   constructor(private route: ActivatedRoute, private trackService: TrackService) { }
 
   ngOnInit(): void {
-    this.firebaseArtistsService.getArtists().subscribe((artists) => {
-      this.artMakerService.artistSig.set(artists);
-    });
-
-    this.firebaseArtistsService.getAudioBooks().subscribe((audioBooks) => {
-      this.artMakerService.audioBookSig.set(audioBooks);
-    });
-
     this.route.data.subscribe((data) => {
       this.type = data['type'];
       if (this.type === 'artists') {
