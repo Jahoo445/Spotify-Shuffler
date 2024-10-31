@@ -8,9 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:spotify-shuffler": "node dist/spotify-shuffler/server/server.mjs",
-    "run build": "ng build && ng run spotify-shuffler:server",
-    "build:ssr": "ng build && ng run your-project-name:server",
-    "serve:ssr": "node dist/your-project-name/server/main.js"
+    "build:ssr": "ng build && ng run spotify-shuffler:server",
+    "serve:ssr": "node dist/spotify-shuffler/server/main.js"
   },
   "private": true,
   "dependencies": {
