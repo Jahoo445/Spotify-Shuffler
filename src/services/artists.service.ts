@@ -3,7 +3,7 @@ import { Injectable, signal } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class ArtistsService {
+export class ArtMakerService {
 
   artistsSig = signal<ArtMaker[]>([]);
   selectedArtMakerSig = signal<ArtMaker>({ id: '', artistName: '', artistId: '' });
