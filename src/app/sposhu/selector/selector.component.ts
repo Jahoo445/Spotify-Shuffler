@@ -3,7 +3,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
-import { TrackService } from '../../services/track-service.service';
+import { TrackService } from '../../../services/track-service.service';
 import { TitleComponent } from '../components/title/title.component';
 import { FooterComponent } from '../components/footer/footer.component';
 import { NavButtonComponent } from '../components/nav-button/nav-button.component';
