@@ -41,7 +41,6 @@ export class SelectorComponent implements OnInit {
       this.type = data['type'];
 
       if (this.isBrowser) {
-        // Only fetch data on the client-side to avoid SSR timeout
         this.loadArtMakerData();
       }
     });
