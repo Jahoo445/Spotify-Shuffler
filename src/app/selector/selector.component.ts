@@ -1,4 +1,5 @@
-import { Component, computed, HostListener, inject, OnInit } from '@angular/core';
+import { Component, computed, HostListener, inject, OnInit, PLATFORM_ID, Inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -22,38 +23,50 @@ import { firstValueFrom } from 'rxjs';
 export class SelectorComponent implements OnInit {
   artMakerService = inject(ArtMakerService);
   firebaseArtistsService = inject(FirebaseArtistsService);
-
   artistImageUrl: string | null = null;
   isDropdownOpen = false;
   type!: 'artists' | 'audiobooks';
+  isBrowser: boolean;
 
-  constructor(private route: ActivatedRoute, private trackService: TrackService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private trackService: TrackService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
 
-  async ngOnInit(): Promise<void> {
-    const artists = await firstValueFrom(this.firebaseArtistsService.getArtists());
-
-    const audioBooks = await firstValueFrom(this.firebaseArtistsService.getAudioBooks());
-
+  ngOnInit(): void {
     this.route.data.subscribe((data) => {
       this.type = data['type'];
-      if (this.type === 'artists') {
-        this.artMakerService.artistsSig.set(artists);
 
-        this.artMakerService.selectedArtMakerSig.set(this.artMakerService.artistsSig()[0]);
+      if (this.isBrowser) {
+        // Only fetch data on the client-side to avoid SSR timeout
+        this.loadArtMakerData();
       }
-      if (this.type === 'audiobooks') {
-        this.artMakerService.artistsSig.set(audioBooks);
-
-        this.artMakerService.selectedArtMakerSig.set(this.artMakerService.artistsSig()[0]);
-      }
-      this.fetchArtistDetails();
     });
   }
 
+  async loadArtMakerData() {
+    try {
+      if (this.type === 'artists') {
+        const artists = await firstValueFrom(this.firebaseArtistsService.getArtists());
+        this.artMakerService.artistsSig.set(artists);
+      } else if (this.type === 'audiobooks') {
+        const audioBooks = await firstValueFrom(this.firebaseArtistsService.getAudioBooks());
+        this.artMakerService.artistsSig.set(audioBooks);
+      }
+
+      this.artMakerService.selectedArtMakerSig.set(this.artMakerService.artistsSig()[0]);
+      this.fetchArtistDetails();
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
 
   getArtists = computed(() => {
     return this.artMakerService.artistsSig();
-  })
+  });
 
   fetchArtistDetails(): void {
     const selected = this.artMakerService.selectedArtMakerSig();
