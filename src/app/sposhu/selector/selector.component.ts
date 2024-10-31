@@ -3,13 +3,13 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
-import { TrackService } from '../../services/track-service.service';
+import { TrackService } from '../../../services/track-service.service';
 import { TitleComponent } from '../components/title/title.component';
 import { FooterComponent } from '../components/footer/footer.component';
 import { NavButtonComponent } from '../components/nav-button/nav-button.component';
 import { NavButtonsContainerComponent } from '../components/nav-buttons-container/nav-buttons-container.component';
-import { FirebaseArtistsService } from '../../services/firebase-artists.service';
-import { ArtMakerService } from '../../services/artists.service';
+import { FirebaseArtistsService } from '../../../services/firebase-artists.service';
+import { ArtMakerService } from '../../../services/artists.service';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
@@ -29,22 +29,22 @@ export class SelectorComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private trackService: TrackService) { }
 
-  async ngOnInit(): Promise<void> {
-    const artists = await firstValueFrom(this.firebaseArtistsService.getArtists());
+  ngOnInit(): void {
+    this.firebaseArtistsService.getArtists().subscribe((artists) => {
+      this.artMakerService.artistSig.set(artists);
+    });
 
-    const audioBooks = await firstValueFrom(this.firebaseArtistsService.getAudioBooks());
+    this.firebaseArtistsService.getAudioBooks().subscribe((audioBooks) => {
+      this.artMakerService.audioBookSig.set(audioBooks);
+    });
 
     this.route.data.subscribe((data) => {
       this.type = data['type'];
       if (this.type === 'artists') {
-        this.artMakerService.artistsSig.set(artists);
-
-        this.artMakerService.selectedArtMakerSig.set(this.artMakerService.artistsSig()[0]);
+        this.artMakerService.selectedArtMakerSig.set(this.artMakerService.artistSig()[0]);
       }
       if (this.type === 'audiobooks') {
-        this.artMakerService.artistsSig.set(audioBooks);
-
-        this.artMakerService.selectedArtMakerSig.set(this.artMakerService.artistsSig()[0]);
+        this.artMakerService.selectedArtMakerSig.set(this.artMakerService.audioBookSig()[0]);
       }
       this.fetchArtistDetails();
     });
@@ -52,7 +52,7 @@ export class SelectorComponent implements OnInit {
 
 
   getArtists = computed(() => {
-    return this.artMakerService.artistsSig();
+    return this.artMakerService.artistSig();
   })
 
   fetchArtistDetails(): void {

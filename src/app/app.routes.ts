@@ -1,10 +1,10 @@
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './sposhu/home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SelectorComponent } from './selector/selector.component';
-import { ShufflerComponent } from './shuffler/shuffler.component';
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
+import { SelectorComponent } from './sposhu/selector/selector.component';
+import { ShufflerComponent } from './sposhu/shuffler/shuffler.component';
+import { LoginComponent } from './sposhu/auth/login/login.component';
+import { RegisterComponent } from './sposhu/auth/register/register.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },

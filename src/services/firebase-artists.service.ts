@@ -15,10 +15,10 @@ export class FirebaseArtistsService {
   constructor() { }
 
   getArtists(): Observable<ArtMaker[]> {
-    return collectionData(this.artistsCollection, { idField: 'id', artistName: 'artistName' }) as Observable<ArtMaker[]>;
+    return collectionData(this.artistsCollection, { idField: 'id' }) as Observable<ArtMaker[]>;
   }
 
   getAudioBooks(): Observable<ArtMaker[]> {
-    return collectionData(this.audioBooksCollection, { idField: 'id', artistName: 'artistName' }) as Observable<ArtMaker[]>;
+    return collectionData(this.audioBooksCollection, { idField: 'id' }) as Observable<ArtMaker[]>;
   }
 }

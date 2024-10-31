@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { TrackService } from '../../services/track-service.service';
+import { TrackService } from '../../../services/track-service.service';
 import { CommonModule } from '@angular/common';
 // import { IonicModule } from '@ionic/angular';
 import { firstValueFrom } from 'rxjs';
@@ -9,7 +9,7 @@ import { FooterComponent } from '../components/footer/footer.component';
 import { NavButtonComponent } from '../components/nav-button/nav-button.component';
 import { NavButtonsContainerComponent } from '../components/nav-buttons-container/nav-buttons-container.component';
 import { ControlButtonsComponent } from '../components/control-buttons/control-buttons.component';
-import { SpotifyTrack } from '../../types/spotifyModels/artistsTracks';
+import { SpotifyTrack } from '../../../types/spotifyModels/artistsTracks';
 
 @Component({
   selector: 'app-shuffler',

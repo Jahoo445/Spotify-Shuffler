@@ -7,10 +7,10 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { SelectorComponent } from './selector/selector.component';
-import { HomeComponent } from './home/home.component';
-import { ShufflerComponent } from './shuffler/shuffler.component';
-import { FooterComponent } from './components/footer/footer.component';
+import { SelectorComponent } from './sposhu/selector/selector.component';
+import { HomeComponent } from './sposhu/home/home.component';
+import { ShufflerComponent } from './sposhu/shuffler/shuffler.component';
+import { FooterComponent } from './sposhu/components/footer/footer.component';
 
 
 @NgModule({
