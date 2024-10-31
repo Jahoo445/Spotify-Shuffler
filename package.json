@@ -8,7 +8,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:spotify-shuffler": "node dist/spotify-shuffler/server/server.mjs",
-    "run build": "ng build && ng run spotify-shuffler:server"
+    "run build": "ng build && ng run spotify-shuffler:server",
+    "build:ssr": "ng build && ng run your-project-name:server",
+    "serve:ssr": "node dist/your-project-name/server/main.js"
   },
   "private": true,
   "dependencies": {
@@ -26,9 +28,12 @@
     "@angular/router": "^18.2.0",
     "@angular/ssr": "^18.2.1",
     "@ionic/angular": "^8.2.7",
+    "@netlify/functions": "^2.8.2",
+    "@nguniversal/express-engine": "^7.0.1",
     "express": "^4.18.2",
     "ionicons": "^7.4.0",
     "rxjs": "~7.8.0",
+    "serverless-http": "^3.2.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
   },
