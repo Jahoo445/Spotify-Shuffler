@@ -53,11 +53,14 @@ export class SelectorComponent implements OnInit {
 
   fetchArtistDetails(): void {
     const selected = this.artMakerService.selectedArtMakerSig();
-    this.trackService.getArtist(selected.artistId).then((artist: Artist) => {
-      this.artistImageUrl = artist.images.length > 0 ? artist.images[2].url : null;
-    }).catch(error => {
-      console.error('Error fetching artist details:', error);
-    });
+
+    if (selected) {
+      this.trackService.getArtist(selected?.artistId).then((artist: Artist) => {
+        this.artistImageUrl = artist.images.length > 0 ? artist.images[2].url : null;
+      }).catch(error => {
+        console.error('Error fetching artist details:', error);
+      });
+    }
   }
 
   toggleDropdown(): void {

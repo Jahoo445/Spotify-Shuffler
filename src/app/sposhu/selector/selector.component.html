@@ -2,13 +2,13 @@
     <app-title text="Select ArtMaker"></app-title>
     <p class="tagline">Choose your {{type}}</p>
     <div class="artist-image-container">
-        <img *ngIf="artistImageUrl" [src]="artistImageUrl" alt="{{ artMakerService.selectedArtMakerSig().artistName }}"
+        <img *ngIf="artistImageUrl" [src]="artistImageUrl" alt="{{ artMakerService.selectedArtMakerSig()?.artistName }}"
             class="artist-image">
     </div>
     <div class="dropdown-container">
         <label for="dropdown" class="dropdown-label">Favorite Artist</label>
         <div class="custom-dropdown" (click)="toggleDropdown()">
-            <span>{{ artMakerService.selectedArtMakerSig().artistName || 'Select an artist' }}</span>
+            <span>{{ artMakerService.selectedArtMakerSig()?.artistName || 'Select an artist' }}</span>
             <div class="dropdown-arrow">&#9662;</div>
         </div>
         <ul class="dropdown-options" *ngIf="isDropdownOpen">
@@ -23,7 +23,7 @@
     <app-nav-buttons-container>
         <app-nav-button label="Cancel" routeLink="/home"></app-nav-button>
         <app-nav-button label="Weiter"
-            [routeLink]="type === 'artists' ? '/artist/' + artMakerService.selectedArtMakerSig().artistId : '/audiobook/' + artMakerService.selectedArtMakerSig().artistId">
+            [routeLink]="type === 'artists' ? '/artist/' + artMakerService.selectedArtMakerSig()?.artistId : '/audiobook/' + artMakerService.selectedArtMakerSig()?.artistId">
         </app-nav-button>
     </app-nav-buttons-container>
 </div>
