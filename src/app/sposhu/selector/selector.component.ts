@@ -42,9 +42,14 @@ export class SelectorComponent implements OnInit {
   }
 
 
-  getArtists = computed(() => {
-    return this.artMakerService.artistSig();
-  })
+  getArtMaker = computed(() => {
+    if (this.type === 'audiobooks') {
+      return this.artMakerService.audioBookSig();
+    } else if (this.type === 'artists') {
+      return this.artMakerService.artistSig();
+    }
+    return [];
+  });
 
   fetchArtistDetails(): void {
     const selected = this.artMakerService.selectedArtMakerSig();

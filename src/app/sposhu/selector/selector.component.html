@@ -12,7 +12,7 @@
             <div class="dropdown-arrow">&#9662;</div>
         </div>
         <ul class="dropdown-options" *ngIf="isDropdownOpen">
-            <li *ngFor="let ArtMaker of getArtists()" (click)="selectArtMaker(ArtMaker)"
+            <li *ngFor="let ArtMaker of getArtMaker()" (click)="selectArtMaker(ArtMaker)"
                 [class.selected]="ArtMaker === artMakerService.selectedArtMakerSig()">
                 {{ ArtMaker.artistName }}
             </li>
