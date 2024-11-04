@@ -18,3 +18,19 @@ $text-color: #fff;
         display: none;
     }
 }
+
+
+
+.github-link {
+    margin-left: 10px;
+
+    .github-icon {
+        width: 24px;
+        height: 24px;
+        transition: opacity 0.3s;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+}
