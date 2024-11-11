@@ -14,7 +14,10 @@ export class SpotifyAuthService {
   }
 
   public async getAccessToken(): Promise<string> {
-    const apiUrl = '/.netlify/functions/fetchSpotifyToken';
+    const apiUrl = isPlatformBrowser(this.platformId)
+      ? '/.netlify/functions/fetchSpotifyToken'
+      : 'https://sposhu.ch/.netlify/functions/fetchSpotifyToken';
+
 
     try {
       const response = await fetch(apiUrl);
