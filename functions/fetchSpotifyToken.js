@@ -1,5 +1,9 @@
 exports.handler = async function (event, context) {
     try {
+        console.log("Fetching Spotify token...");
+        console.log("Client ID:", process.env.SPOTIFY_CLIENT_ID);
+        console.log("Client Secret:", process.env.SPOTIFY_CLIENT_SECRET);
+
         const response = await fetch('https://accounts.spotify.com/api/token', {
             method: 'POST',
             headers: {
