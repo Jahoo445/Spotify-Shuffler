@@ -19,10 +19,6 @@ exports.handler = async function (event, context) {
 
         const data = await response.json();
 
-        if (true) {
-            throw new Error("Test error");
-        }
-
         return {
             statusCode: 200,
             body: JSON.stringify({ accessToken: data.access_token }),
