@@ -14,7 +14,7 @@ export class SpotifyAuthService {
   }
 
   public async getAccessToken(): Promise<string> {
-    const apiUrl = '/api/fetchSpotifyToken';
+    const apiUrl = '/.netlify/functions/fetchSpotifyToken';
 
     try {
       const response = await fetch(apiUrl);
