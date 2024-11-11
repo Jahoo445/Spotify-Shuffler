@@ -1,5 +1,4 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -7,22 +6,36 @@ import { isPlatformBrowser } from '@angular/common';
 export class SpotifyAuthService {
   private accessToken: string = '';
 
-  constructor(@Inject(PLATFORM_ID) private platformId: any) {
-    if (isPlatformBrowser(this.platformId)) {
-      this.fetchAndStoreAccessToken();
-    }
+  constructor() {
+    this.fetchAndStoreAccessToken();
   }
 
   public async getAccessToken(): Promise<string> {
+    const url = `https://accounts.spotify.com/api/token`;
+
+    const urlencoded = new URLSearchParams();
+    urlencoded.append("grant_type", "client_credentials");
+    urlencoded.append("client_id", "4f6993cd4fd54564b2f45a0d9a941742");
+    urlencoded.append("client_secret", "9913877d9bdc4065ad25a69b84733471");
+
+    const options = {
+      method: 'POST',
+      body: urlencoded,
+    };
+
     try {
-      const response = await fetch('/.netlify/functions/fetchSpotifyToken');
+      const response = await fetch(url, options);
+
       if (!response.ok) {
-        throw new Error(`Failed to fetch access token: ${response.statusText}`);
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      const data = await response.json();
-      return data.accessToken;
-    } catch (error) {
-      console.error("Error getting access token:", error);
+
+      const data: AuthToken = await response.json();
+
+      return data.access_token;
+    }
+    catch (error) {
+      console.error(error);
       return '';
     }
   }
