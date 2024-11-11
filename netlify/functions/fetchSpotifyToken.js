@@ -14,9 +14,6 @@ exports.handler = async function (event, context) {
         const data = await response.json();
         return {
             statusCode: 200,
-            headers: {
-                'Content-Type': 'application/json',
-            },
             body: JSON.stringify({ accessToken: data.access_token }),
         };
     } catch (error) {
