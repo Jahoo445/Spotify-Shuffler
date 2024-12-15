@@ -22,6 +22,6 @@
     <app-nav-buttons-container>
         <app-nav-button label="Cancel" routeLink="/home"></app-nav-button>
         <app-nav-button label="Weiter"
-            [routeLink]="type === 'artists' ? '/artist/' + selectedArtMaker.id : '/audiobook/' + selectedArtMaker.id"></app-nav-button>
+            [routeLink]="type === 'artists' ? '/artist/' + selectedArtMaker.artistId : '/audiobook/' + selectedArtMaker.artistId"></app-nav-button>
     </app-nav-buttons-container>
 </div>
