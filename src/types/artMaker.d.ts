@@ -1,4 +1,4 @@
 interface ArtMaker {
-    id: string;
+    artistId: string;
     artistName: string;
 }
